@@ -47,7 +47,7 @@ def main():
     args = parse_args()
 
     script_dir = Path(__file__).resolve().parent
-    project_dir = script_dir.parent
+    project_dir = script_dir.parent.parent
 
     raw_zip_dir = (project_dir / args.raw_zip_dir).resolve()
     dataset_dir = (project_dir / args.dataset_dir).resolve()

@@ -10,11 +10,11 @@ Included:
 - aggregate charts and Excel chart workbooks
 
 Main entrypoints:
-- `scripts/build_native_algorithms_docker.sh`
-- `scripts/run_native_algorithms_in_docker.sh`
-- `scripts/run_neo4j_queries_results.py`
-- `scripts/materialize_partitioned_property_graph.py`
-- `scripts/generate_aggregate_charts.py`
+- `scripts/build/build_native_algorithms_docker.sh`
+- `scripts/run/run_native_algorithms_in_docker.sh`
+- `scripts/query/run_neo4j_queries_results.py`
+- `scripts/materialize/materialize_partitioned_property_graph.py`
+- `scripts/results/generate_aggregate_charts.py`
 
 Main final outputs:
 - `results/docker_comparison_summary.csv`

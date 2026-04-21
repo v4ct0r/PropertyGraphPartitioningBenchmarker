@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 WORKSPACE_DIR="$(cd "$PROJECT_DIR/.." && pwd)"
 
 DATASET=""
@@ -33,11 +33,11 @@ MPIRUN_BIN=""
 SCOTCH_CMD=""
 PTSCOTCH_CMD=""
 
-PREP_NEO4J_SCRIPT="$PROJECT_DIR/scripts/prepare_neo4j_csv_for_partitioning.py"
-PREP_DBLP_SCRIPT="$PROJECT_DIR/scripts/prepare_dblp_for_partitioning.py"
-PREP_CORDIS_SCRIPT="$PROJECT_DIR/scripts/prepare_cordis_horizon_for_partitioning.py"
-PREP_CORDIS_RCP_SCRIPT="$PROJECT_DIR/scripts/prepare_cordis_horizon_for_rcp.py"
-MATERIALIZE_SCRIPT="$PROJECT_DIR/scripts/materialize_partitioned_property_graph.py"
+PREP_NEO4J_SCRIPT="$PROJECT_DIR/scripts/prep/prepare_neo4j_csv_for_partitioning.py"
+PREP_DBLP_SCRIPT="$PROJECT_DIR/scripts/prep/prepare_dblp_for_partitioning.py"
+PREP_CORDIS_SCRIPT="$PROJECT_DIR/scripts/prep/prepare_cordis_horizon_for_partitioning.py"
+PREP_CORDIS_RCP_SCRIPT="$PROJECT_DIR/scripts/prep/prepare_cordis_horizon_for_rcp.py"
+MATERIALIZE_SCRIPT="$PROJECT_DIR/scripts/materialize/materialize_partitioned_property_graph.py"
 RCP_RUNNER="$PROJECT_DIR/algorithms/RCP/run_rcp_original.sh"
 
 usage() {
@@ -55,7 +55,7 @@ Supported prep modes:
   cordis_horizon  Prepare from CORDIS Horizon zip files
 
 Usage:
-  bash scripts/run_all_algorithms.sh [options]
+  bash scripts/run/run_all_algorithms.sh [options]
 
 Core options:
   --dataset <name-or-path>   Dataset name under datasets or explicit path
@@ -95,10 +95,10 @@ Command template overrides:
   --help                     Show this help
 
 Examples:
-  bash scripts/run_all_algorithms.sh --dataset fib25_neo4j_inputs
-  bash scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode prepared
-  bash scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode dblp_xml
-  bash scripts/run_all_algorithms.sh --dataset cordis_horizon_inputs --prep-mode cordis_horizon
+  bash scripts/run/run_all_algorithms.sh --dataset fib25_neo4j_inputs
+  bash scripts/run/run_all_algorithms.sh --dataset dblp_inputs --prep-mode prepared
+  bash scripts/run/run_all_algorithms.sh --dataset dblp_inputs --prep-mode dblp_xml
+  bash scripts/run/run_all_algorithms.sh --dataset cordis_horizon_inputs --prep-mode cordis_horizon
 EOF
 }
 

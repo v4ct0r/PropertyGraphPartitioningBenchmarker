@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 RESULTS_DIR = REPO_ROOT / "results"
 LOGS_DIR = RESULTS_DIR / "logs"
 ALGORITHMS = ("kahip_fast", "parmetis", "ptscotch", "scotch", "metis", "rcp")

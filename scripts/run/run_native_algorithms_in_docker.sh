@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 IMAGE_TAG="property-graph-native-partitioners:latest"
 DATASET=""
@@ -22,7 +22,7 @@ usage() {
 Run selected native graph partitioners inside the pinned Docker image.
 
 Usage:
-  bash scripts/run_native_algorithms_in_docker.sh [options]
+  bash scripts/run/run_native_algorithms_in_docker.sh [options]
 
 Core options:
   --dataset <name-or-path>   Dataset name under datasets or explicit path
@@ -117,7 +117,7 @@ if [[ -n "$CPUSET_CPUS" ]]; then
 fi
 
 container_cmd=(
-  bash scripts/run_all_algorithms.sh
+  bash scripts/run/run_all_algorithms.sh
   --prep-mode "$PREP_MODE"
   --algorithms "$ALGORITHMS_CSV"
   --ks "$KS_CSV"
@@ -158,7 +158,7 @@ echo "[INFO] Algorithms: $ALGORITHMS_CSV"
 docker "${docker_args[@]}" "$IMAGE_TAG" "${container_cmd[@]}"
 
 if [[ "$SKIP_AGGREGATE_MERGE" -eq 0 ]]; then
-  python3 "$PROJECT_DIR/scripts/merge_comparison_summaries.py" \
+  python3 "$PROJECT_DIR/scripts/results/merge_comparison_summaries.py" \
     --output "$AGGREGATE_SUMMARY_HOST" \
     --glob "results/docker*/comparison_summary.csv"
 else

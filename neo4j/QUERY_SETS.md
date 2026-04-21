@@ -1,6 +1,6 @@
 # Query Sets For Dataset Testing
 
-These query folders are ready for `neo4j/scripts/run_query_bench.py`:
+These query folders are ready for `scripts/query/run_neo4j_queries_results.py`:
 
 - `neo4j/queries_ldbc_test` (9 queries)
 - `neo4j/queries_fib25_test` (10 queries)
@@ -12,7 +12,7 @@ These query folders are ready for `neo4j/scripts/run_query_bench.py`:
 LDBC:
 
 ```bash
-python3 neo4j/scripts/run_query_bench.py \
+python3 scripts/query/run_neo4j_queries_results.py \
   --uri bolt://localhost:7687 \
   --user neo4j --password test12345 \
   --case ldbc_test \
@@ -23,7 +23,7 @@ python3 neo4j/scripts/run_query_bench.py \
 fib25:
 
 ```bash
-python3 neo4j/scripts/run_query_bench.py \
+python3 scripts/query/run_neo4j_queries_results.py \
   --uri bolt://localhost:7687 \
   --user neo4j --password test12345 \
   --case fib25_test \
@@ -34,7 +34,7 @@ python3 neo4j/scripts/run_query_bench.py \
 mb6:
 
 ```bash
-python3 neo4j/scripts/run_query_bench.py \
+python3 scripts/query/run_neo4j_queries_results.py \
   --uri bolt://localhost:7687 \
   --user neo4j --password test12345 \
   --case mb6_test \
@@ -45,7 +45,7 @@ python3 neo4j/scripts/run_query_bench.py \
 CORDIS:
 
 ```bash
-python3 neo4j/scripts/run_query_bench.py \
+python3 scripts/query/run_neo4j_queries_results.py \
   --uri bolt://localhost:7687 \
   --user neo4j --password test12345 \
   --case cordis_test \

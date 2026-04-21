@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 GRAPH=""
 K=""
@@ -18,7 +18,7 @@ usage() {
 Run PT-Scotch METIS-compat binary via MPI and normalize output assignment path.
 
 Usage:
-  bash scripts/ptscotchmetis_wrapper.sh \
+  bash scripts/wrappers/ptscotchmetis_wrapper.sh \
     --graph <path> --k <int> --out <path> --mpi <int> \
     [--ptscotchmetis-bin <path>] [--mpirun-bin <path>]
 EOF

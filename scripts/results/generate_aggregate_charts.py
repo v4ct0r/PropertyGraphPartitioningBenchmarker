@@ -15,7 +15,7 @@ from matplotlib.lines import Line2D
 import xlsxwriter
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 RESULTS_DIR = ROOT / "results"
 OUT_DIR = RESULTS_DIR / "charts"
 PNG_DIR = OUT_DIR / "png"

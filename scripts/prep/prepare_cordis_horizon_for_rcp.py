@@ -47,7 +47,7 @@ def write_csv(path: Path, header, rows):
 
 def main():
     args = parse_args()
-    project_dir = Path(__file__).resolve().parent.parent
+    project_dir = Path(__file__).resolve().parents[2]
     dataset_dir = (project_dir / args.dataset_dir).resolve()
     out_dir = (Path(args.out_dir).resolve() if args.out_dir else (dataset_dir / "rcp_neo4j_csv").resolve())
     raw_csv_dir = dataset_dir / "raw_csv"

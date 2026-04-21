@@ -837,7 +837,7 @@ def build_summary_text(rows: List[dict]) -> str:
 
 def main() -> int:
     args = parse_args()
-    project_dir = Path(__file__).resolve().parent.parent
+    project_dir = Path(__file__).resolve().parents[2]
     summary_csv = (project_dir / args.summary_csv).resolve()
     out_csv = (project_dir / args.results_csv).resolve()
     out_md = (project_dir / args.results_md).resolve()

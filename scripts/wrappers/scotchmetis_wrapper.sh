@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 GRAPH=""
 K=""
@@ -16,7 +16,7 @@ usage() {
 Run Scotch METIS-compat binary and normalize output assignment path.
 
 Usage:
-  bash scripts/scotchmetis_wrapper.sh --graph <path> --k <int> --out <path> [--scotchmetis-bin <path>]
+  bash scripts/wrappers/scotchmetis_wrapper.sh --graph <path> --k <int> --out <path> [--scotchmetis-bin <path>]
 EOF
 }
 
