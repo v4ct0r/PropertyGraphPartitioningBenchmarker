@@ -9,6 +9,7 @@ Native-Docker benchmark repository for property-graph partitioning.
 
 2. Run partitioning inside Docker on a prepared dataset:
 - `bash scripts/run/run_native_algorithms_in_docker.sh --dataset mb6_neo4j_inputs --prep-mode prepared --algorithms kahip_fast,metis,parmetis,scotch,ptscotch,rcp --ks 2,4,6,8`
+- To materialize in the same run, add `--materialize-property-graph`.
 
 3. Materialize partitioned CSV outputs after a completed partitioning run:
 - `python3 scripts/materialize/materialize_partitioned_property_graph.py --input-dir datasets/mb6_neo4j_inputs --node-index results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/node_index.tsv --assignment results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/metis_partition_k2.txt --k 2 --out-root results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/materialized_property_graph --clean`
