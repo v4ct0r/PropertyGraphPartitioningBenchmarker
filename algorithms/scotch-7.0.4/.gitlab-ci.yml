@@ -1,0 +1,215 @@
+---
+stages:
+  - build
+  - test
+  - sonar
+
+# JOB_INT: [ 32 | 64 | 32-64 ]
+# JOB_THREAD: [ n | c | k | s | m ]
+# JOB_DEBUG: [ n | a | f ]
+# JOB_RENAME: [ n | r ]
+.matrix_32: &matrix_32
+  parallel:
+    matrix:
+      - JOB_INT: [32, 32-64]
+        JOB_THREAD: [n]
+        JOB_DEBUG: [n]
+        JOB_RENAME: [n]
+      - JOB_INT: [32-64]
+        JOB_THREAD: [n, k]
+        JOB_DEBUG: [a]
+        JOB_RENAME: [n]
+      - JOB_INT: [32]
+        JOB_THREAD: [n, c, m]
+        JOB_DEBUG: [f]
+        JOB_RENAME: [n]
+
+.matrix_64: &matrix_64
+  parallel:
+    matrix:
+      - JOB_INT: [64]
+        JOB_THREAD: [n]
+        JOB_DEBUG: [n]
+        JOB_RENAME: [n]
+      - JOB_INT: [64]
+        JOB_THREAD: [n, c, s, m]
+        JOB_DEBUG: [a]
+        JOB_RENAME: [n]
+      - JOB_INT: [64]
+        JOB_THREAD: [m]
+        JOB_DEBUG: [a]
+        JOB_RENAME: [r]
+
+
+# default cache
+.cache_default: &cache_default
+  untracked: true
+  when: 'always'
+
+## GNU Makefile pipeline
+
+# build
+.build_makefile: &build_makefile
+  stage: build
+  script:
+    - ./ci/build_makefile.sh
+
+scotch_build_32:
+  <<: *build_makefile
+  tags: ['32bits']
+  cache:
+    key: scotch32 $CI_NODE_INDEX
+    policy: push
+    <<: *cache_default
+  <<: *matrix_32
+
+scotch_build_64:
+  <<: *build_makefile
+  tags: ['64bits']
+  cache:
+    key: scotch64 $CI_NODE_INDEX
+    policy: push
+    <<: *cache_default
+  <<: *matrix_64
+
+# test
+.test_makefile: &test_makefile
+  stage: test
+  artifacts:
+    untracked: true
+  script:
+    - ./ci/test_makefile.sh
+
+scotch_test_32:
+  <<: *test_makefile
+  tags: ['32bits']
+  cache:
+    key: scotch32 $CI_NODE_INDEX
+    policy: pull
+    <<: *cache_default
+  <<: *matrix_32
+
+scotch_test_64:
+  <<: *test_makefile
+  tags: ['64bits']
+  cache:
+    key: scotch64 $CI_NODE_INDEX
+    policy: pull
+    <<: *cache_default
+  <<: *matrix_64
+
+# sonarqube analysis if schedule job
+scotch_sonar:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  stage: sonar
+  tags: ['sonar']
+  script:
+    - ci/analysis.sh
+    - sonar-scanner -X > sonar.log
+  allow_failure: true
+  coverage: /^\s*lines:\s*\d+.\d+\%/
+  artifacts:
+    paths:
+      - analyzer_reports
+      - sonar-project.properties
+      - ./*.log
+      - ./*.cov
+      - ./*.xml
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+
+## CMake pipeline (not done if schedule)
+
+# specific rule: not triggered if schedule pipeline (for cmake jobs for example)
+.rule_noschedule: &rule_noschedule
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+
+# build
+.build_cmake: &build_cmake
+  <<: *rule_noschedule
+  stage: build
+  tags: ['cmake']
+  script:
+    - ./ci/build_cmake.sh
+
+build_cmake_gcc:
+  <<: *build_cmake
+  variables:
+    CC: "gcc"
+    FC: "gfortran"
+  cache:
+    key: cmake_gcc
+    policy: push
+    <<: *cache_default
+
+build_cmake_clang:
+  <<: *build_cmake
+  variables:
+    CC: "clang"
+    FC: "gfortran"
+  cache:
+    key: cmake_clang
+    policy: push
+    <<: *cache_default
+
+build_cmake_intel:
+  <<: *build_cmake
+  variables:
+    CC: "icx"
+    FC: "gfortran"
+  cache:
+    key: cmake_intel
+    policy: push
+    <<: *cache_default
+
+# test
+.test_cmake: &test_cmake
+  <<: *rule_noschedule
+  stage: test
+  tags: ['cmake']
+  script:
+    - ./ci/test_cmake.sh
+  artifacts:
+    untracked: true
+    reports:
+      junit: report.xml
+
+test_cmake_gcc:
+  <<: *test_cmake
+  needs:
+    - build_cmake_gcc
+  variables:
+    CC: "gcc"
+    FC: "gfortran"
+  cache:
+    key: cmake_gcc
+    policy: pull
+    <<: *cache_default
+
+test_cmake_clang:
+  <<: *test_cmake
+  needs:
+    - build_cmake_clang
+  variables:
+    CC: "clang"
+    FC: "gfortran"
+  cache:
+    key: cmake_clang
+    policy: pull-push
+    <<: *cache_default
+
+test_cmake_intel:
+  <<: *test_cmake
+  needs:
+    - build_cmake_intel
+  variables:
+    CC: "icx"
+    FC: "ifx"
+  cache:
+    key: cmake_intel
+    policy: pull-push
+    <<: *cache_default
