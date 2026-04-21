@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORKSPACE_DIR="$(cd "$PROJECT_DIR/.." && pwd)"
 
-IMAGE_TAG="spark-native-partitioners:latest"
+IMAGE_TAG="property-graph-native-partitioners:latest"
 CONTEXT_DIR=""
 
 usage() {
@@ -13,10 +13,10 @@ usage() {
 Build a pinned Docker image containing KaHIP, METIS, ParMETIS, and SCOTCH built from local source trees.
 
 Usage:
-  bash spark/scripts/build_native_algorithms_docker.sh [options]
+  bash scripts/build_native_algorithms_docker.sh [options]
 
 Options:
-  --image-tag <tag>   Docker image tag (default: spark-native-partitioners:latest)
+  --image-tag <tag>   Docker image tag (default: property-graph-native-partitioners:latest)
   --context-dir <p>   Build context directory (default: temporary directory under /tmp)
   --help              Show this help
 EOF
@@ -69,7 +69,7 @@ for path in "$KAHIP_SRC" "$METIS_SRC" "$GKLIB_SRC" "$PARMETIS_SRC" "$SCOTCH_SRC"
 done
 
 if [[ -z "$CONTEXT_DIR" ]]; then
-  CONTEXT_DIR="$(mktemp -d /tmp/spark-native-algos-build.XXXXXX)"
+  CONTEXT_DIR="$(mktemp -d /tmp/property-graph-native-build.XXXXXX)"
   trap 'rm -rf "$CONTEXT_DIR"' EXIT
 else
   mkdir -p "$CONTEXT_DIR"

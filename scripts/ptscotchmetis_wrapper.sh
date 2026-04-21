@@ -18,7 +18,7 @@ usage() {
 Run PT-Scotch METIS-compat binary via MPI and normalize output assignment path.
 
 Usage:
-  bash spark/scripts/ptscotchmetis_wrapper.sh \
+  bash scripts/ptscotchmetis_wrapper.sh \
     --graph <path> --k <int> --out <path> --mpi <int> \
     [--ptscotchmetis-bin <path>] [--mpirun-bin <path>]
 EOF
@@ -151,7 +151,7 @@ if [[ -z "$DGPART_BIN" ]]; then
     DGPART_BIN="$(command -v dgpart)"
   else
     echo "[ERROR] Could not find ptscotchmetis or dgpart binary."
-    echo "        Try: bash spark/scripts/install_scotch_local.sh"
+    echo "        Try: provide --ptscotchmetis-bin <path> or install PT-Scotch locally."
     echo "        Or pass --ptscotchmetis-bin <path>."
     exit 1
   fi
@@ -166,7 +166,7 @@ if [[ -z "$GCV_BIN" ]]; then
     GCV_BIN="$(command -v gcv)"
   else
     echo "[ERROR] Could not find gcv binary required for dgpart fallback."
-    echo "        Try: bash spark/scripts/install_scotch_local.sh"
+    echo "        Try: provide --ptscotchmetis-bin <path> or install PT-Scotch locally."
     exit 1
   fi
 fi

@@ -72,7 +72,7 @@ def count_lines(path: Path) -> int:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Prepare Neo4j CSV folder for Spark partition algorithms.")
+    ap = argparse.ArgumentParser(description="Prepare Neo4j CSV folder for native partition algorithms.")
     ap.add_argument("--input-dir", required=True, help="Directory containing Neo4j CSV files")
     ap.add_argument("--out-dir", required=True, help="Output working directory")
     args = ap.parse_args()
@@ -197,7 +197,7 @@ def main() -> None:
             t, raw_id = item if item is not None else ("Unknown", str(i))
             w.write(f"{i}\t{t}\t{raw_id}\n")
 
-    # Synthetic nodes file for Spark hash algorithm (parser expects id:<num>).
+    # Synthetic nodes file for the legacy hash-compatible parser (expects id:<num>).
     with hash_nodes_txt.open("w", encoding="utf-8", newline="") as w:
         for i in range(1, total_nodes + 1):
             w.write(f"id:{i}\n")

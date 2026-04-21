@@ -1,6 +1,6 @@
 # PropertyGraphPartitioningBenchmarker
 
-Official native-Docker-only benchmark export for property-graph partitioning.
+Official native-Docker benchmark repository for property-graph partitioning.
 
 Included:
 - native Docker pipeline scripts
@@ -23,5 +23,5 @@ Main final outputs:
 - `results/charts/`
 
 Notes:
-- This export intentionally excludes the old Spark/Scala runner path.
+- No Spark/Scala runner is included in this repository.
 - Some dataset files are larger than standard GitHub file limits; if this is pushed to GitHub, Git LFS or release archives may still be required.

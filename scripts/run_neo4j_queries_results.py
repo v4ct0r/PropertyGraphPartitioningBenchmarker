@@ -229,8 +229,8 @@ def resolve_summary_path(project_dir: Path, raw_path: str) -> Optional[Path]:
     p = Path(raw)
     if p.is_file():
         return p
-    prefix = "/workspace/spark/"
-    if raw == "/workspace/spark":
+    prefix = "/workspace/pgbench/"
+    if raw == "/workspace/pgbench":
         mapped = project_dir
     elif raw.startswith(prefix):
         mapped = project_dir / raw[len(prefix) :]

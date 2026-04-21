@@ -55,10 +55,10 @@ Supported prep modes:
   cordis_horizon  Prepare from CORDIS Horizon zip files
 
 Usage:
-  bash spark/scripts/run_all_algorithms.sh [options]
+  bash scripts/run_all_algorithms.sh [options]
 
 Core options:
-  --dataset <name-or-path>   Dataset name under spark/datasets or explicit path
+  --dataset <name-or-path>   Dataset name under datasets or explicit path
   --dataset-dir <path>       Explicit dataset dir (alternative to --dataset)
   --dataset-label <txt>      Label used in result folder names
   --prep-mode <mode>         auto|prepared|neo4j_csv|dblp_xml|cordis_horizon (default: auto)
@@ -66,7 +66,7 @@ Core options:
   --prep-input-dir <path>    Explicit input directory for neo4j_csv prep
   --ks <csv>                 Comma-separated k values (default: 2,4,6,8)
   --mpi-procs <n>            MPI processes for PT-Scotch/ParMETIS (default: 4)
-  --results-root <path>      Results root (default: spark/results)
+  --results-root <path>      Results root (default: results)
   --retries <n>              Retries per phase (default: 1)
   --seed <n>                 Seed for KaHIP/randomized components (default: 42)
   --stop-on-error            Stop immediately on first failure
@@ -95,10 +95,10 @@ Command template overrides:
   --help                     Show this help
 
 Examples:
-  bash spark/scripts/run_all_algorithms.sh --dataset fib25_neo4j_inputs
-  bash spark/scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode prepared
-  bash spark/scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode dblp_xml
-  bash spark/scripts/run_all_algorithms.sh --dataset cordis_horizon_inputs --prep-mode cordis_horizon
+  bash scripts/run_all_algorithms.sh --dataset fib25_neo4j_inputs
+  bash scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode prepared
+  bash scripts/run_all_algorithms.sh --dataset dblp_inputs --prep-mode dblp_xml
+  bash scripts/run_all_algorithms.sh --dataset cordis_horizon_inputs --prep-mode cordis_horizon
 EOF
 }
 

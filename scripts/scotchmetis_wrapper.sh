@@ -16,7 +16,7 @@ usage() {
 Run Scotch METIS-compat binary and normalize output assignment path.
 
 Usage:
-  bash spark/scripts/scotchmetis_wrapper.sh --graph <path> --k <int> --out <path> [--scotchmetis-bin <path>]
+  bash scripts/scotchmetis_wrapper.sh --graph <path> --k <int> --out <path> [--scotchmetis-bin <path>]
 EOF
 }
 
@@ -119,7 +119,7 @@ if [[ -z "$GPART_BIN" ]]; then
     GPART_BIN="$(command -v gpart)"
   else
     echo "[ERROR] Could not find scotchmetis or gpart binary."
-    echo "        Try: bash spark/scripts/install_scotch_local.sh"
+    echo "        Try: provide --scotchmetis-bin <path> or install Scotch locally."
     echo "        Or pass --scotchmetis-bin <path>."
     exit 1
   fi
@@ -134,7 +134,7 @@ if [[ -z "$GCV_BIN" ]]; then
     GCV_BIN="$(command -v gcv)"
   else
     echo "[ERROR] Could not find gcv binary required for gpart fallback."
-    echo "        Try: bash spark/scripts/install_scotch_local.sh"
+    echo "        Try: provide --scotchmetis-bin <path> or install Scotch locally."
     exit 1
   fi
 fi

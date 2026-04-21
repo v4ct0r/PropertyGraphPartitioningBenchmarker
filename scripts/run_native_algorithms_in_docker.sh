@@ -4,14 +4,14 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-IMAGE_TAG="spark-native-partitioners:latest"
+IMAGE_TAG="property-graph-native-partitioners:latest"
 DATASET=""
 DATASET_DIR=""
 DATASET_LABEL=""
 PREP_MODE="prepared"
 ALGORITHMS_CSV="kahip_fast,metis,scotch"
 KS_CSV="2,4,6,8"
-RESULTS_ROOT="/workspace/spark/results"
+RESULTS_ROOT="/workspace/pgbench/results"
 CPUSET_CPUS=""
 AGGREGATE_SUMMARY_HOST="$PROJECT_DIR/results/docker_comparison_summary.csv"
 SKIP_AGGREGATE_MERGE=0
@@ -22,17 +22,17 @@ usage() {
 Run selected native graph partitioners inside the pinned Docker image.
 
 Usage:
-  bash spark/scripts/run_native_algorithms_in_docker.sh [options]
+  bash scripts/run_native_algorithms_in_docker.sh [options]
 
 Core options:
-  --dataset <name-or-path>   Dataset name under spark/datasets or explicit path
+  --dataset <name-or-path>   Dataset name under datasets or explicit path
   --dataset-dir <path>       Explicit dataset directory
   --dataset-label <txt>      Optional label override
   --prep-mode <mode>         Default: prepared
   --algorithms <csv>         Default: kahip_fast,metis,scotch
   --ks <csv>                 Default: 2,4,6,8
-  --image-tag <tag>          Docker image tag (default: spark-native-partitioners:latest)
-  --results-root <path>      In-container results root (default: /workspace/spark/results)
+  --image-tag <tag>          Docker image tag (default: property-graph-native-partitioners:latest)
+  --results-root <path>      In-container results root (default: /workspace/pgbench/results)
   --cpuset-cpus <csv>        Optional Docker CPU pinning, e.g. 1-5
   --aggregate-summary <path> Host-side aggregate Docker summary CSV (default: results/docker_comparison_summary.csv)
   --no-aggregate-merge       Skip updating the host-side aggregate Docker summary CSV
@@ -108,8 +108,8 @@ docker_args=(
   run --rm
   -u "$(id -u):$(id -g)"
   -e HOME=/tmp/codex-home
-  -v "$PROJECT_DIR:/workspace/spark"
-  -w /workspace/spark
+  -v "$PROJECT_DIR:/workspace/pgbench"
+  -w /workspace/pgbench
 )
 
 if [[ -n "$CPUSET_CPUS" ]]; then

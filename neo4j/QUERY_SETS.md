@@ -17,7 +17,7 @@ python3 neo4j/scripts/run_query_bench.py \
   --user neo4j --password test12345 \
   --case ldbc_test \
   --query-dir neo4j/queries_ldbc_test \
-  --out neo4j/results/query_latency_from_spark.csv
+  --out neo4j/results/query_latency_results.csv
 ```
 
 fib25:
@@ -28,7 +28,7 @@ python3 neo4j/scripts/run_query_bench.py \
   --user neo4j --password test12345 \
   --case fib25_test \
   --query-dir neo4j/queries_fib25_test \
-  --out neo4j/results/query_latency_from_spark.csv
+  --out neo4j/results/query_latency_results.csv
 ```
 
 mb6:
@@ -39,7 +39,7 @@ python3 neo4j/scripts/run_query_bench.py \
   --user neo4j --password test12345 \
   --case mb6_test \
   --query-dir neo4j/queries_mb6_test \
-  --out neo4j/results/query_latency_from_spark.csv
+  --out neo4j/results/query_latency_results.csv
 ```
 
 CORDIS:
@@ -50,7 +50,7 @@ python3 neo4j/scripts/run_query_bench.py \
   --user neo4j --password test12345 \
   --case cordis_test \
   --query-dir neo4j/queries_cordis_test \
-  --out neo4j/results/query_latency_from_spark.csv
+  --out neo4j/results/query_latency_results.csv
 ```
 
 ## Notes

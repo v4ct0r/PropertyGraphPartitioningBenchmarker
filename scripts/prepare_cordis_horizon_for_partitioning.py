@@ -18,7 +18,7 @@ def parse_args():
     ap.add_argument(
         "--dataset-dir",
         default="datasets/cordis_horizon_inputs",
-        help="Output dataset directory under spark/.",
+        help="Output dataset directory under the repository root.",
     )
     return ap.parse_args()
 
