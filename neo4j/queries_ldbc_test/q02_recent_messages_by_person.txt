@@ -1,0 +1,9 @@
+MATCH (p:Person)
+WITH p ORDER BY p.id LIMIT 1
+MATCH (p)<-[:hasCreator]-(m)
+WHERE m:Post OR m:Comment
+RETURN m.id AS messageId,
+       labels(m) AS messageLabels,
+       m.creationDate AS createdAt
+ORDER BY createdAt DESC, messageId ASC
+LIMIT 20

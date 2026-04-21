@@ -1,0 +1,4 @@
+MATCH (n:Neuron)
+RETURN sum(CASE WHEN n.distal = true OR toString(n.distal) = 'true' THEN 1 ELSE 0 END) AS distalTrue,
+       sum(CASE WHEN n.proximal = true OR toString(n.proximal) = 'true' THEN 1 ELSE 0 END) AS proximalTrue,
+       count(*) AS totalNeurons

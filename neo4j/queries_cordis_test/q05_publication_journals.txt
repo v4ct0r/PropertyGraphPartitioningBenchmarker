@@ -1,0 +1,5 @@
+MATCH (:Project)-[:PROJECT_PUBLICATION]->(pub:Publication)
+WHERE coalesce(pub.journalTitle, '') <> ''
+RETURN pub.journalTitle AS journal, count(*) AS publications
+ORDER BY publications DESC, journal ASC
+LIMIT 25;

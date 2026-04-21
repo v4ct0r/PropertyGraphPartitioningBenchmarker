@@ -1,0 +1,5 @@
+MATCH (c:Comment)-[:replyOf]->(m)
+RETURN labels(m) AS repliedToLabels,
+       count(*) AS replyCount
+ORDER BY replyCount DESC
+LIMIT 10

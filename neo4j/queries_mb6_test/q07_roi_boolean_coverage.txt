@@ -1,0 +1,5 @@
+MATCH (n:Neuron)
+RETURN sum(CASE WHEN n.alpha1 = true OR toString(n.alpha1) = 'true' THEN 1 ELSE 0 END) AS alpha1True,
+       sum(CASE WHEN n.alpha2 = true OR toString(n.alpha2) = 'true' THEN 1 ELSE 0 END) AS alpha2True,
+       sum(CASE WHEN n.alpha3 = true OR toString(n.alpha3) = 'true' THEN 1 ELSE 0 END) AS alpha3True,
+       count(*) AS totalNeurons

@@ -1,0 +1,9 @@
+CALL () {
+  MATCH (n)
+  RETURN count(n) AS nodes
+}
+CALL () {
+  MATCH ()-[r]->()
+  RETURN count(r) AS rels
+}
+RETURN nodes, rels

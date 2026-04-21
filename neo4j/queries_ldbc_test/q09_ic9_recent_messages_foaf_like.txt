@@ -1,0 +1,28 @@
+// Web-derived from LDBC IC9 (Recent messages by friends/foaf): ldbcouncil + Fabric gist adaptation
+CALL () {
+  MATCH (p:Person)
+  RETURN p.id AS personId
+  ORDER BY personId ASC
+  LIMIT 1
+}
+CALL (personId) {
+  WITH personId
+  MATCH (:Person {id: personId})-[:knows*1..2]-(friend:Person)
+  WHERE friend.id <> personId
+  MATCH (friend)<-[:hasCreator]-(m)
+  WHERE m:Post OR m:Comment
+  RETURN max(m.creationDate) AS maxDate
+}
+MATCH (:Person {id: personId})-[:knows*1..2]-(friend:Person)
+WHERE friend.id <> personId
+MATCH (friend)<-[:hasCreator]-(message)
+WHERE (message:Post OR message:Comment)
+  AND message.creationDate < maxDate
+RETURN message.id AS messageId,
+       coalesce(message.content, message.imageFile) AS messageContent,
+       message.creationDate AS messageCreationDate,
+       friend.id AS personId,
+       friend.firstName AS personFirstName,
+       friend.lastName AS personLastName
+ORDER BY messageCreationDate DESC, messageId ASC
+LIMIT 20

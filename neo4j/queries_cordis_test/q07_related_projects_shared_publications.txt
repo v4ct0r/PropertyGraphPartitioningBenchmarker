@@ -1,0 +1,7 @@
+MATCH (p1:Project)-[:PROJECT_PUBLICATION]->(pub:Publication)<-[:PROJECT_PUBLICATION]-(p2:Project)
+WHERE p1.id < p2.id
+WITH p1, p2, count(pub) AS shared_publications
+WHERE shared_publications > 0
+RETURN p1.id AS project_a, p2.id AS project_b, shared_publications
+ORDER BY shared_publications DESC, project_a ASC, project_b ASC
+LIMIT 25;

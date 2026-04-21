@@ -1,0 +1,9 @@
+MATCH (p:Person)
+WITH p ORDER BY p.id LIMIT 1
+MATCH (p)-[:knows*1..2]-(friend:Person)
+WITH DISTINCT friend
+RETURN friend.id AS personId,
+       friend.firstName AS firstName,
+       friend.lastName AS lastName
+ORDER BY lastName ASC, personId ASC
+LIMIT 50

@@ -1,0 +1,5 @@
+MATCH (f:Forum)-[:containerOf]->(post:Post)
+RETURN f.id AS forumId,
+       count(post) AS postCount
+ORDER BY postCount DESC, forumId ASC
+LIMIT 20

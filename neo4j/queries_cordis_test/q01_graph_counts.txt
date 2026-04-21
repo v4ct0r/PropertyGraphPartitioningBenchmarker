@@ -1,0 +1,14 @@
+MATCH (p:Project)
+RETURN count(p) AS projects;
+
+MATCH (p:Publication)
+RETURN count(p) AS publications;
+
+MATCH (d:Deliverable)
+RETURN count(d) AS deliverables;
+
+MATCH ()-[r:PROJECT_PUBLICATION]->()
+RETURN count(r) AS project_publication_edges;
+
+MATCH ()-[r:PROJECT_DELIVERABLE]->()
+RETURN count(r) AS project_deliverable_edges;

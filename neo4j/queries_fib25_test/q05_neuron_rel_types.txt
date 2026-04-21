@@ -1,0 +1,5 @@
+MATCH (:Neuron)-[r]->(:Neuron)
+RETURN type(r) AS relType,
+       count(*) AS relCount
+ORDER BY relCount DESC, relType ASC
+LIMIT 20

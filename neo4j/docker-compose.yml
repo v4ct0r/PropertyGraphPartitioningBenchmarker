@@ -1,0 +1,16 @@
+services:
+  neo4j:
+    image: neo4j:5.26
+    container_name: neo4j_bench
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/test12345
+      - NEO4J_server_memory_heap_initial__size=2G
+      - NEO4J_server_memory_heap_max__size=2G
+      - NEO4J_server_memory_pagecache_size=1G
+      - NEO4J_PLUGINS=["apoc"]
+    volumes:
+      - ./data:/data
+      - ./logs:/logs

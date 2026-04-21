@@ -1,0 +1,6 @@
+MATCH (n:Neuron)
+OPTIONAL MATCH (n)--(m)
+RETURN n.bodyId AS bodyId,
+       count(m) AS degree
+ORDER BY degree DESC, bodyId ASC
+LIMIT 20

@@ -1,0 +1,7 @@
+MATCH (p1:Project)-[:PROJECT_DELIVERABLE]->(d:Deliverable)<-[:PROJECT_DELIVERABLE]-(p2:Project)
+WHERE p1.id < p2.id
+WITH p1, p2, count(d) AS shared_deliverables
+WHERE shared_deliverables > 0
+RETURN p1.id AS project_a, p2.id AS project_b, shared_deliverables
+ORDER BY shared_deliverables DESC, project_a ASC, project_b ASC
+LIMIT 25;

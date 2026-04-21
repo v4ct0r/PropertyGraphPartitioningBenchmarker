@@ -1,0 +1,9 @@
+MATCH (p:Project)
+OPTIONAL MATCH (p)-[:PROJECT_PUBLICATION]->(pub:Publication)
+WITH p, count(pub) AS publication_count
+OPTIONAL MATCH (p)-[:PROJECT_DELIVERABLE]->(d:Deliverable)
+WITH p, publication_count, count(d) AS deliverable_count
+WHERE publication_count > 0 AND deliverable_count > 0
+RETURN p.id AS project_id, p.acronym AS acronym, publication_count, deliverable_count
+ORDER BY publication_count DESC, deliverable_count DESC, project_id ASC
+LIMIT 25;

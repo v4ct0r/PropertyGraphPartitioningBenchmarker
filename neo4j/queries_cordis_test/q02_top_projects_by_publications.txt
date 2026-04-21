@@ -1,0 +1,5 @@
+MATCH (p:Project)-[:PROJECT_PUBLICATION]->(pub:Publication)
+WITH p, count(pub) AS publication_count
+RETURN p.id AS project_id, p.acronym AS acronym, publication_count
+ORDER BY publication_count DESC, project_id ASC
+LIMIT 25;

@@ -1,0 +1,9 @@
+MATCH (p:Person)
+WITH p ORDER BY p.id LIMIT 1
+OPTIONAL MATCH (p)-[:isLocatedIn]->(place:Place)
+RETURN p.id AS personId,
+       p.firstName AS firstName,
+       p.lastName AS lastName,
+       p.gender AS gender,
+       p.creationDate AS creationDate,
+       place.id AS placeId

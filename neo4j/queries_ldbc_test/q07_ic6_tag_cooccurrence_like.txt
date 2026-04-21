@@ -1,0 +1,17 @@
+// Web-derived from LDBC IC6 (Tag co-occurrence): ldbcouncil + Fabric gist adaptation
+CALL () {
+  MATCH (p:Person)-[:knows*1..2]-(f:Person)<-[:hasCreator]-(post:Post)-[:hasTag]->(knownTag:Tag)
+  WITH p, knownTag, count(*) AS c
+  ORDER BY c DESC, p.id ASC
+  LIMIT 1
+  RETURN p.id AS personId, knownTag.name AS tagName
+}
+MATCH (person:Person {id: personId})-[:knows*1..2]-(friend:Person)
+WHERE friend.id <> person.id
+MATCH (friend)<-[:hasCreator]-(post:Post)-[:hasTag]->(knownTag:Tag {name: tagName})
+MATCH (post)-[:hasTag]->(tag:Tag)
+WHERE tag.name <> tagName
+RETURN tag.name AS otherTag,
+       count(post) AS postCount
+ORDER BY postCount DESC, otherTag ASC
+LIMIT 20

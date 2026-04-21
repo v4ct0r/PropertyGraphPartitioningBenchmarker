@@ -1,0 +1,13 @@
+// Web-derived from neuPrint one-intermediate path examples
+MATCH (n:Neuron)-[c1]->(mid:Neuron)-[c2]->(p:Neuron)
+WHERE toInteger(coalesce(c1.weight, 0)) >= 20
+  AND toInteger(coalesce(c2.weight, 0)) >= 20
+RETURN n.bodyId AS srcBodyId,
+       mid.bodyId AS midBodyId,
+       p.bodyId AS dstBodyId,
+       type(c1) AS rel1Type,
+       toInteger(coalesce(c1.weight, 0)) AS w1,
+       type(c2) AS rel2Type,
+       toInteger(coalesce(c2.weight, 0)) AS w2
+ORDER BY (w1 + w2) DESC, srcBodyId ASC, midBodyId ASC, dstBodyId ASC
+LIMIT 100

@@ -1,0 +1,6 @@
+MATCH (n:Neuron)
+RETURN n.bodyId AS bodyId,
+       toInteger(coalesce(n.post, 0)) AS postCount,
+       toInteger(coalesce(n.pre, 0)) AS preCount
+ORDER BY postCount DESC, bodyId ASC
+LIMIT 20

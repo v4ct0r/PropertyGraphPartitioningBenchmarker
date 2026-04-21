@@ -1,0 +1,6 @@
+MATCH (n:Neuron)
+RETURN count(n) AS neuronCount,
+       min(toInteger(coalesce(n.pre, 0))) AS minPre,
+       max(toInteger(coalesce(n.pre, 0))) AS maxPre,
+       min(toInteger(coalesce(n.post, 0))) AS minPost,
+       max(toInteger(coalesce(n.post, 0))) AS maxPost

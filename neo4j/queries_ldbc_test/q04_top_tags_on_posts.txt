@@ -1,0 +1,5 @@
+MATCH (t:Tag)<-[:hasTag]-(post:Post)
+RETURN t.id AS tagId,
+       count(post) AS postCount
+ORDER BY postCount DESC, tagId ASC
+LIMIT 20

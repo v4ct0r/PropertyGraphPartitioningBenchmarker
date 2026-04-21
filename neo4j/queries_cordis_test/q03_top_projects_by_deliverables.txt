@@ -1,0 +1,5 @@
+MATCH (p:Project)-[:PROJECT_DELIVERABLE]->(d:Deliverable)
+WITH p, count(d) AS deliverable_count
+RETURN p.id AS project_id, p.acronym AS acronym, deliverable_count
+ORDER BY deliverable_count DESC, project_id ASC
+LIMIT 25;

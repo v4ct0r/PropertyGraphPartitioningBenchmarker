@@ -1,0 +1,5 @@
+MATCH (:Project)-[:PROJECT_DELIVERABLE]->(d:Deliverable)
+WHERE coalesce(d.deliverableType, '') <> ''
+RETURN d.deliverableType AS deliverable_type, count(*) AS deliverables
+ORDER BY deliverables DESC, deliverable_type ASC
+LIMIT 25;

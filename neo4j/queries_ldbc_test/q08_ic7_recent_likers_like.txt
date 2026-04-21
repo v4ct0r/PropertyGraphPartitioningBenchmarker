@@ -1,0 +1,23 @@
+// Web-derived from LDBC IC7 (Recent likers): ldbcouncil + Fabric gist adaptation
+CALL () {
+  MATCH (p:Person)
+  RETURN p.id AS personId
+  ORDER BY personId ASC
+  LIMIT 1
+}
+MATCH (:Person {id: personId})<-[:hasCreator]-(message)<-[like:likes]-(liker:Person)
+WITH liker, like.creationDate AS likeTime, message, personId
+ORDER BY likeTime DESC, message.id ASC
+WITH liker, personId,
+     head(collect(message)) AS topMessage,
+     head(collect(likeTime)) AS topLikeTime
+RETURN liker.id AS likerId,
+       liker.firstName AS likerFirstName,
+       liker.lastName AS likerLastName,
+       topLikeTime,
+       NOT (liker)-[:knows]-(:Person {id: personId}) AS isNew,
+       topMessage.id AS messageId,
+       coalesce(topMessage.content, topMessage.imageFile) AS messageContent,
+       topMessage.creationDate AS messageCreationDate
+ORDER BY topLikeTime DESC, likerId ASC
+LIMIT 20

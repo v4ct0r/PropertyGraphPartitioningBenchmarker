@@ -1,0 +1,11 @@
+// Web-derived from neuPrint FB/ConnectsTo path examples, adapted to fib25 ROI flags
+MATCH (n:Neuron)-[c]->(m:Neuron)
+WHERE (n.distal = true OR toString(n.distal) = 'true')
+  AND (m.distal = true OR toString(m.distal) = 'true')
+  AND toInteger(coalesce(c.weight, 0)) >= 10
+RETURN n.bodyId AS srcBodyId,
+       type(c) AS relType,
+       toInteger(coalesce(c.weight, 0)) AS weight,
+       m.bodyId AS dstBodyId
+ORDER BY weight DESC, srcBodyId ASC, dstBodyId ASC
+LIMIT 100
