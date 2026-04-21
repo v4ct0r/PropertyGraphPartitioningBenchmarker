@@ -23,5 +23,4 @@ Main final outputs:
 - `results/charts/`
 
 Notes:
-- No Spark/Scala runner is included in this repository.
 - Some dataset files are larger than standard GitHub file limits; if this is pushed to GitHub, Git LFS or release archives may still be required.
