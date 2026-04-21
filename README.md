@@ -10,13 +10,17 @@ Native-Docker benchmark repository for property-graph partitioning.
 2. Run partitioning inside Docker on a prepared dataset:
 - `bash scripts/run/run_native_algorithms_in_docker.sh --dataset mb6_neo4j_inputs --prep-mode prepared --algorithms kahip_fast,metis,parmetis,scotch,ptscotch,rcp --ks 2,4,6,8`
 
-3. Run query benchmarking:
+3. Materialize partitioned CSV outputs after a completed partitioning run:
+- `python3 scripts/materialize/materialize_partitioned_property_graph.py --input-dir datasets/mb6_neo4j_inputs --node-index results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/node_index.tsv --assignment results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/metis_partition_k2.txt --k 2 --out-root results/<run_root>/algorithm_outputs/metis_mb6_neo4j_inputs_k2/materialized_property_graph --clean`
+- For RCP, pass the dataset-specific Neo4j CSV directory as `--input-dir` and add `--memberships-file results/<run_root>/algorithm_outputs/rcp_<dataset>_k2/work/region_node_component_2_v2.txt`.
+
+4. Run query benchmarking:
 - `python3 scripts/query/run_neo4j_queries_results.py --summary-csv results/docker_comparison_summary.csv --datasets mb6_neo4j_inputs --algorithms metis,kahip_fast,parmetis,ptscotch,scotch,rcp --ks 2,4,6,8 --results-csv results/queries_results.csv --results-md results/queries_results.md --results-txt results/queries_results.txt`
 
-4. Generate aggregate charts:
+5. Generate aggregate charts:
 - `python3 scripts/results/generate_aggregate_charts.py`
 
-5. Inspect final outputs:
+6. Inspect final outputs:
 - `results/docker_comparison_summary.csv`
 - `results/queries_results.csv`
 - `results/materialization_metrics.csv`
